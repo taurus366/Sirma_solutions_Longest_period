@@ -1,32 +1,23 @@
-import org.w3c.dom.Node;
-
 import java.io.*;
-import java.net.Socket;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Main {
 
- static int tableSize;
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
 
 
         Map<Integer,List<Employee>> map = new HashMap<>();
-//        Map<Integer,List>
 
         String line = "";
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/main/resources/employees.csv"));
             while ((line = br.readLine()) != null) {
                 String[] employee = line.split(", ");
-                System.out.println(Arrays.toString(employee));
                 mapPopulate(map,employee);
             }
         }
@@ -45,9 +36,8 @@ public class Main {
             }
         }
 
-        System.out.printf("%s, %d , %d", map.get(jobId).stream().map(employee -> String.valueOf(employee.getEmpId())).collect(Collectors.joining(", ")),jobId,days);
+        System.out.printf("%s, %d, %d", map.get(jobId).stream().map(employee -> String.valueOf(employee.getEmpId())).collect(Collectors.joining(", ")),jobId,days);
 
-//        System.out.println(map.size());
     }
 
     static void mapPopulate(Map<Integer,List<Employee>> map,String[] arr) throws ParseException {
@@ -68,7 +58,7 @@ public class Main {
 
         Employee employee = new Employee();
         employee
-                .setEmpId(Integer.parseInt(arr[0]))
+                .setEmpId(empId)
                 .setJobId(jobId)
                 .setDateTo(dateTo)
                 .setDateFrom(dateFrom)
